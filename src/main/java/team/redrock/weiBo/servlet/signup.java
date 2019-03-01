@@ -28,7 +28,7 @@ public class signup extends HttpServlet {
         String u_sex = request.getParameter("u_sex");
         String u_name = request.getParameter("u_name");
         //设置注册时 默认头像
-        String u_pic = "./img/1da8362e955db67c3a2b1e09fde69049.jpeg";
+        String u_pic = "../img/默认头像.jpg";
 
 
 
