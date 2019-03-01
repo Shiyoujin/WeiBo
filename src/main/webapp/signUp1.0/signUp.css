@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+body {
+    font: normal 100% Helvetica, Arial, sans-serif;
+}
+/* 总体 */
+#contianer {
+    width: 100%;
+    height: 100%;
+    background: url('./img/dva.jpg') no-repeat ;
+    display: inline-block;
+    background-size: 100%;
+}
+
+/* 注册部分 */
+#zcBox {
+    height: 28.125em;
+    width: 25em;
+    text-align: center;
+    background:#fcf3e4;
+    opacity:0.93;
+    margin: 9.375em auto 0;
+    border-radius: 0.5em;
+}
+
+#zcBox .img img {
+    width: 5em;
+    height: 5em;
+    margin-top: 10%;
+}
+#zcBox .img p {
+    font-family: 微软雅黑;
+    font-size: 1.25em;
+    color: rgb(161, 123, 132);
+    letter-spacing: 0.3em;
+}
+
+#zcBox .input {
+    margin: 1.875em;
+    text-align: center;
+    font-size: 0.9375em;
+}
+#zcBox .input span {
+    font-size: 0.9375em;
+    font-family: 黑体;
+}
+#zcBox .input #userID {
+    margin-top: 0.625em;
+    width: 18.75em;
+    height: 1.875em;
+    border: none;
+    border-radius: 2px;
+}
+#zcBox .input #password {
+    margin-top: 0.625em;
+    width: 18.75em;
+    height: 1.875em;
+    border: none;
+    border-radius: 2px;
+}
+#zcBox .input #u_name{
+    margin-top: 0.625em;
+    width: 18.75em;
+    height: 1.875em;
+    border: none;
+    border-radius: 2px;
+    margin-bottom: 0.625em;
+}
+
+#zcBox #button {
+    width: 75%;
+    height: 2.5em;
+    background: #ff8140;
+    border-radius: 5px;
+    color: white;
+    font-family: Microsoft YaHei;
+    letter-spacing: 0.3em;
+    font-size: 1.125em;
+    border: none;
+}
+#zcbox #button:hover{
+    background: #e2753f;
+    cursor:pointer;
+}
+
+#zcbox #contentSignIn{
+    height: 1.25em;
+    width: 100%;
+    font-size: 0.625em;
+    margin-top: 1.5625em;
+}
+#zcbox #contentSignIn:hover{
+    color: #e86070;
+    cursor:pointer;
+}

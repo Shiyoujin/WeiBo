@@ -1,0 +1,609 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="homePageSignIn.css">
+    <title>微博</title>
+</head>
+
+<body>
+
+    <div id="contianer">
+
+
+        <div id="top">
+            <div id="topWord">
+                <div id="logo" onclick="window.open('homePageSignIn.html','_self')"><img src="./img/微博.png">微博</div>
+                <input id="search" type="text" name="search" placeholder="大家正在搜：重庆邮电大学动漫社宅舞部CsR出道">
+                <div id="searchButton" onclick="searchMess()">搜索</div>
+                <div id="logOff" onclick="window.open('../homePage/homePage.html')"><img src="./img/logOff.png">退出登录</div>
+                <div id="catalogGame" onclick=""><img src="./img/游戏(1).png">游戏</div>
+                <div class="catalog" onclick=""><img src="./img/发现(1).png">发现</div>
+                <div class="catalog" onclick=""><img src="./img/视频(1).png">视频</div>
+                <div class="catalog" onclick=""><img src="./img/首页(1).png">首页</div>
+            </div>
+        </div>
+        <div id="zyBox">
+
+            <!-- 搜索 -->
+            <div id="resultBox"></div>
+
+            <!-- 左边分类 -->
+            <div id="leftClass">
+                <div id="classify1">
+                    <div id="shouYe" onclick="">首页</div>
+                    <div class="classify1" onclick="jumpCollect()">我的收藏</div>
+                    <div class="classify1" onclick="">我的赞</div>
+                </div>
+                <div id="classify2">
+                    <div class="classify2" onclick="jumpHotWeibo()"><img src="./img/火苗.png">热门微博</div>
+                    <div class="classify2"><img src="./img/视频.png">热门视频</div>
+                    <div class="classify2" onclick="jumpTrendSearch()"><img src="./img/热搜.png">热搜</div>
+                </div>
+            </div>
+
+            <div id="imformation">
+                <div id="sendWeiBo">
+                    <p>有什么新鲜事想告诉大家？</p>
+                    <textarea id="input"></textarea>
+                    <div id="funcArea">
+                        <div class="func"><img src="./img/表情.png">表情</div>
+                        <div class="func"><img src="./img/图片.png">图片</div>
+                        <div class="func"><img src="./img/录像.png">视频</div>
+                        <div class="func"><img src="./img/话题.png">话题</div>
+                        <div class="func"><img src="./img/闪电.png">头条文章</div>
+                    </div>
+                    <div id="send">
+                        <div id="sendMess" onclick="sendMess()">发布</div>
+                    </div>
+                </div>
+
+                <!-- 发布的微博 -->
+                <div id="messageBox"></div>
+            </div>
+
+            <!-- 用户界面 -->
+            <div id="userBox">
+                <!-- 用户头像 -->
+                <div id="userFace"></div>
+                <!-- 用户昵称 -->
+                <div id="u_name" onclick="jumpUser()">微博用户</div>
+                <div id="concernedBox">
+                    <strong id="careNumber">0</strong>
+                    <span>关注</span>
+                </div>
+                <div id="fansBox">
+                    <strong id="fansNumber">0</strong>
+                    <span>粉丝</span>
+                </div>
+                <div id="weiBoBox">
+                    <strong id="postNumber">0</strong>
+                    <span>微博</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function jumpTrendSearch() {
+            var jumpXhr = new XMLHttpRequest();
+            jumpXhr.open('post', '/jumpHotSearch');
+            jumpXhr.send();
+            jumpXhr.onreadystatechange = function () {
+                if (jumpXhr.readyState == 4) {
+                    if (jumpXhr.status == 200) {
+                        console.log('跳转成功');
+                        window.location.href = '../trendSearch/trendSearch.html';
+                    }
+                    else {
+                        console.log('跳转失败');
+                    }
+                }
+            }
+        }
+        function jumpHotWeibo() {
+            var jumpXhr = new XMLHttpRequest();
+            jumpXhr.open('post', '/jumpHotWeibo');
+            jumpXhr.send();
+            jumpXhr.onreadystatechange = function () {
+                if (jumpXhr.readyState == 4) {
+                    if (jumpXhr.status == 200) {
+                        console.log('跳转成功');
+                        window.location.href = '../hotWeiBo/hotWeiBo.html';
+                    }
+                    else {
+                        console.log('跳转失败');
+                    }
+                }
+            }
+        }
+
+        function jumpUser() {
+            var jumpXhr = new XMLHttpRequest();
+            jumpXhr.open('post', '/jumpUserPage');
+            jumpXhr.send();
+            jumpXhr.onreadystatechange = function () {
+                if (jumpXhr.readyState == 4) {
+                    if (jumpXhr.status == 200) {
+                        console.log('跳转成功');
+                        window.location.href = '../userHomepage/userHomepage.html';
+                    }
+                    else {
+                        console.log('跳转失败');
+                    }
+                }
+            }
+        }
+
+        function jumpCollect() {
+            var jumpXhr = new XMLHttpRequest();
+            //跳转到收藏页的接口
+            jumpXhr.open('post', '/jumpCollectionPage');
+            jumpXhr.send();
+            jumpXhr.onreadystatechange = function () {
+                if (jumpXhr.readyState == 4) {
+                    if (jumpXhr.status == 200) {
+                        console.log('跳转成功');
+                        window.location.href = '../homeCollect/homeCollect.html';
+                    }
+                    else {
+                        console.log('跳转失败');
+                    }
+                }
+            }
+        }
+        var textarea = document.getElementById('input');
+        var messageBox = document.getElementById('messageBox');
+        var userFace = document.getElementById('userFace');//获取用户微博头像
+        window.onload = function () {
+            var xhr = new XMLHttpRequest();
+            //读取微博后端接口！
+            xhr.open('post', '/personNumber');
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        var allMessage = JSON.parse(xhr.responseText);
+                        console.log(allMessage);
+
+                        // 获取用户个人信息
+                        var u_name = document.getElementById('u_name');
+                        var careNumber = document.getElementById('careNumber');
+                        var fansNumber = document.getElementById('fansNumber');
+                        var postNumber = document.getElementById('postNumber');
+                        u_name.innerHTML = allMessage.u_name;//获取用户昵称
+                        careNumber.innerHTML = allMessage.careNumber;//获取用户关注数
+                        fansNumber.innerHTML = allMessage.fansNumber;//获取用户粉丝数
+                        fansNumber.style.cursor = 'pointer';
+                        fansNumber.onclick = function () {
+                            var jumpCareXhr = new XMLHttpRequest();
+                            jumpCareXhr.open('post', '/jumpCarePage');
+                            jumpCareXhr.send();
+                            jumpCareXhr.onreadystatechange = function () {
+                                if (jumpCareXhr.readyState == 4) {
+                                    if (jumpCareXhr.status == 200) {
+                                        console.log('跳转成功');
+                                        window.location.href = '../homeCare/homeCare.html';
+                                    }
+                                }
+                            }
+                        }
+                        postNumber.innerHTML = allMessage.postNumber;//获取用户微博数
+
+                        var uPic = document.createElement('img');
+                        userFace.appendChild(uPic);
+                        uPic.src = allMessage.u_pic;
+
+                        //我发的微博
+                        for (var i = allMessage.user.length - 1; i >= 0; i--) {
+                            var id = allMessage.user[i].id;
+                            var sendMessage = document.createElement('div');
+                            messageBox.appendChild(sendMessage);
+                            sendMessage.style.padding = '0.625em';
+                            sendMessage.style.width = '36.25em';
+                            sendMessage.style.background = "white";
+                            sendMessage.style.marginBottom = '0.625em';
+                            sendMessage.style.borderRadius = '0.2em';
+                            //用户头像
+                            var faceBox = document.createElement('div');
+                            sendMessage.appendChild(faceBox);
+                            faceBox.style.display = 'inline-block';
+                            var face = document.createElement('img');
+                            faceBox.appendChild(face);
+                            face.style.height = '3em';
+                            face.style.width = '3em';
+                            face.style.borderRadius = '50%';
+                            face.src = allMessage.user[i].o_opic;
+                            // 用户昵称
+                            var userName = document.createElement('div');
+                            sendMessage.appendChild(userName);
+                            userName.style.height = '1.875em';
+                            userName.innerHTML = allMessage.user[i].u_name;// 获取用户昵称
+                            userName.style.fontSize = "1.5625em";
+                            userName.style.fontFamily = "微软雅黑";
+
+                            // 时间
+                            var time = document.createElement('p');
+                            sendMessage.appendChild(time);
+                            time.style.fontSize = "1.125em";
+                            time.style.cursor = 'pointer';
+                            time.innerHTML = allMessage.user[i].u_times;// 获取时间
+                            (function LIFO(id) {
+                                time.onclick = function () {
+                                    //跳转到详情页
+                                    var jumpDetailsXhr = new XMLHttpRequest();
+                                    jumpDetailsXhr.open('post', '/jumpDetailPage');
+                                    jumpDetailsXhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                    jumpDetailsXhr.send('id=' + id);
+                                    jumpDetailsXhr.onreadystatechange = function () {
+                                        if (jumpDetailsXhr.readyState == 4) {
+                                            if (jumpDetailsXhr.status == 200) {
+                                                console.log('跳转成功');
+                                                window.location.href = '../details/details.html';
+                                            }
+                                        }
+                                    }
+                                }
+                            })(id)
+
+                            // 微博内容
+                            var mess = document.createElement('div');
+                            sendMessage.appendChild(mess);
+                            mess.style.paddingTop = '20px';
+                            mess.style.borderBottom = "0.0625em solid #e8e8e8";
+                            mess.innerHTML = allMessage.user[i].u_content;// 获取微博内容
+
+                            // 评论点赞
+                            var handle = document.createElement('div');
+                            sendMessage.appendChild(handle);
+                            handle.style.height = '2.1875em';
+                            handle.style.width = '100%';
+                            // 点赞
+                            var greet = document.createElement('div');
+                            handle.appendChild(greet);
+                            greet.style.width = '46%';
+                            greet.style.height = '1em';
+                            greet.style.textAlign = "center";
+                            greet.style.padding = '0.625em';
+                            greet.style.display = "inline-block";
+                            greet.innerHTML = '<img src = "./img/点赞.png" height = "20px" width = "20px">';
+                            var greetNumber = document.createElement('span');
+                            greet.appendChild(greetNumber);
+                            greetNumber.style.fontSize = '1.25em';
+                            greetNumber.style.marginLeft = '0.3125em';
+                            greetNumber.innerHTML = allMessage.user[i].g_number;//获取点赞数
+                            // 评论
+                            var comment = document.createElement('div');
+                            handle.appendChild(comment);
+                            comment.style.width = '46%';
+                            comment.style.height = '1em';
+                            comment.style.textAlign = "center";
+                            comment.style.padding = '0.625em';
+                            comment.style.display = "inline-block";
+                            comment.innerHTML = '<img src = "./img/评论.png" height = "20px" width = "20px">';
+                            var commentNumber = document.createElement('span');
+                            comment.appendChild(commentNumber);
+                            commentNumber.style.fontSize = '1.2em';
+                            commentNumber.style.marginLeft = '0.3125em';
+                            commentNumber.innerHTML = allMessage.user[i].c_number;//获取评论数
+                        }
+                        //关注的人发送的微博
+                        for (var i = allMessage.like.length - 1; i >= 0; i--) {
+                            var id = allMessage.like[i].id;
+                            var sendMessage = document.createElement('div');
+                            messageBox.appendChild(sendMessage);
+                            sendMessage.style.padding = '0.625em';
+                            sendMessage.style.width = '36.25em';
+                            sendMessage.style.background = "white";
+                            sendMessage.style.marginBottom = '0.625em';
+                            sendMessage.style.borderRadius = '0.2em';
+                            //用户头像
+                            var faceBox = document.createElement('div');
+                            sendMessage.appendChild(faceBox);
+                            faceBox.style.display = 'inline-block';
+                            var face = document.createElement('img');
+                            faceBox.appendChild(face);
+                            face.style.height = '3em';
+                            face.style.width = '3em';
+                            face.style.borderRadius = '50%';
+                            face.src = allMessage.like[i].l_pic;
+                            // 用户昵称
+                            var userName = document.createElement('div');
+                            sendMessage.appendChild(userName);
+                            userName.style.height = '1.875em';
+                            userName.innerHTML = allMessage.like[i].l_name;// 获取用户昵称
+                            userName.style.fontSize = "1.5625em";
+                            userName.style.fontFamily = "微软雅黑";
+
+                            // 时间
+                            var time = document.createElement('p');
+                            sendMessage.appendChild(time);
+                            time.style.cursor = 'pointer';
+                            time.style.fontSize = "1.125em";
+                            time.innerHTML = allMessage.like[i].l_times;// 获取时间
+                            //点击时间跳转详情页
+                            (function LIFO(id) {
+                                time.onclick = function () {
+                                    console.log(id);
+                                    // 跳转到详情页
+                                    var jumpDetailsXhr = new XMLHttpRequest();
+                                    jumpDetailsXhr.open('post', '/jumpDetailPage');
+                                    jumpDetailsXhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                    jumpDetailsXhr.send('id=' + id);
+                                    jumpDetailsXhr.onreadystatechange = function () {
+                                        if (jumpDetailsXhr.readyState == 4) {
+                                            if (jumpDetailsXhr.status == 200) {
+                                                console.log('跳转成功');
+                                                window.location.href = '../details/details.html';
+                                            }
+                                        }
+                                    }
+                                }
+                            })(id)
+                            // 微博内容
+                            var mess = document.createElement('div');
+                            sendMessage.appendChild(mess);
+                            mess.style.paddingTop = '1.25em';
+                            mess.style.borderBottom = "0.0625em solid #e8e8e8";
+                            mess.innerHTML = allMessage.like[i].l_content;// 获取微博内容
+
+                            // 评论点赞
+                            var handle = document.createElement('div');
+                            sendMessage.appendChild(handle);
+                            handle.style.height = '2.1875em';
+                            handle.style.width = '100%';
+                            // 点赞
+                            var greet = document.createElement('div');
+                            handle.appendChild(greet);
+                            greet.style.width = '46%';
+                            greet.style.height = '1em';
+                            greet.style.textAlign = "center";
+                            greet.style.padding = '0.625em';
+                            greet.style.display = "inline-block";
+                            greet.innerHTML = '<img src = "./img/点赞.png" height = "20px" width = "20px">';
+                            var greetNumber = document.createElement('span');
+                            greet.appendChild(greetNumber);
+                            greetNumber.style.fontSize = '1.25em';
+                            greetNumber.style.marginLeft = '0.3125em';
+                            greetNumber.innerHTML = allMessage.like[i].g_number;//获取点赞数
+                            // 评论
+                            var comment = document.createElement('div');
+                            handle.appendChild(comment);
+                            comment.style.width = '46%';
+                            comment.style.height = '1em';
+                            comment.style.textAlign = "center";
+                            comment.style.padding = '0.625em';
+                            comment.style.display = "inline-block";
+                            comment.innerHTML = '<img src = "./img/评论.png" height = "20px" width = "20px">';
+                            var commentNumber = document.createElement('span');
+                            comment.appendChild(commentNumber);
+                            commentNumber.style.fontSize = '1.2em';
+                            commentNumber.style.marginLeft = '0.3125em';
+                            commentNumber.innerHTML = allMessage.like[i].c_number;//获取评论数
+                        }
+
+                    }
+                }
+            }
+        }
+        //发送微博
+        function sendMess() {
+            var message = textarea.value;
+            var xhr = new XMLHttpRequest();
+            // 发送微博后端接口！
+            xhr.open('post', '/sendPost');
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send('content=' + message);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        console.log('发送成功');
+                        textarea.innerHTML = "";//清空输入框中内容
+                    }
+                    else {
+                        console.log('发送失败');
+                    }
+                    window.location.href = 'homePageSignIn.html';
+                }
+            }
+        }
+
+
+        //搜索
+        function searchMess() {
+            var searchBox = document.getElementById('search');
+            var resultBox = document.getElementById('resultBox');
+            resultBox.style.display = 'block';
+            var searchMess = searchBox.value;
+            var xhr = new XMLHttpRequest();
+            //搜索的后端接口！
+            xhr.open('post', '/search');
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send('content=' + searchMess);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        var searchResult = JSON.parse(xhr.responseText);
+
+                        //关闭窗口按钮
+                        var closeBox = document.createElement('div');
+                        resultBox.appendChild(closeBox);
+                        closeBox.style.height = '2em';
+                        closeBox.style.width = '3em';
+                        closeBox.style.lineHeight = '2em';
+                        closeBox.style.textAlign = 'center';
+                        closeBox.style.background = '#fcc5c5';
+                        closeBox.style.cursor = 'pointer';
+                        closeBox.style.borderRadius = '0.3em';
+                        closeBox.innerHTML = '关闭';
+                        closeBox.onclick = function () {
+                            resultBox.style.display = 'none';
+                            resultBox.innerHTML = "";
+                        }
+
+                        //展示搜索到的用户
+                        //查询的用户
+                        for (var i = 0; i < searchResult.user.length; i++) {
+                            var userBox = document.createElement('div');
+                            resultBox.appendChild(userBox);
+                            userBox.style.width = '50%';
+                            userBox.style.background = '#ffffff';
+                            userBox.style.display = 'inline-block';
+                            userBox.style.padding = '0.5em';
+                            userBox.style.margin = '0.5em 1em 1em';
+                            userBox.style.borderRadius = '0.3em';
+                            //用户昵称
+                            var u_name = document.createElement('div');
+                            userBox.appendChild(u_name);
+                            u_name.style.width = '70%';
+                            u_name.style.fontSize = '1.5em';
+                            u_name.innerHTML = searchResult.user[i].u_name;
+                            var u_id = searchResult.user[i].userID;
+                            //用户性别
+                            var u_sex = document.createElement('span');
+                            userBox.appendChild(u_sex);
+                            u_sex.style.marginTop = '0.5em';
+                            u_sex.style.fontSize = '1em';
+                            u_sex.style.color = '#474747';
+                            u_sex.innerHTML = searchResult.user[i].u_sex;
+                            //用户个人简介
+                            var u_intro = document.createElement('div');
+                            userBox.appendChild(u_intro);
+                            u_intro.style.width = '100%';
+                            u_intro.style.marginTop = '0.5em';
+                            u_intro.style.fontSize = '1em';
+                            u_intro.style.color = '#474747';
+                            u_intro.innerHTML = searchResult.user[i].u_intro;
+
+                            //添加关注
+                            var careBox = document.createElement('div');
+                            resultBox.appendChild(careBox);
+                            careBox.style.display = 'inline-block';
+                            careBox.style.padding = '0.5em';
+                            careBox.style.marginTop = '1em';
+                            careBox.style.marginLeft = '0.5em';
+                            careBox.style.height = '2em';
+                            careBox.style.width = '4.5em';
+                            careBox.style.textAlign = 'center';
+                            careBox.style.lineHeight = '2em';
+                            careBox.style.verticalAlign = 'top';
+                            careBox.style.borderRadius = '0.3em';
+                            careBox.innerHTML = '点击关注';
+                            careBox.style.cursor = 'pointer';
+                            careBox.style.background = '#eb9292';
+                            careBox.style.color = '#474747';
+                            (function LIFO(u_id) {
+                                careBox.onclick = function () {
+                                    var careXhr = new XMLHttpRequest();
+                                    //关注的后端接口！
+                                    careXhr.open('post', '/insertCare');
+                                    careXhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                    careXhr.send('follow_id=' + u_id);
+                                    careXhr.onreadystatechange = function () {
+                                        if (careXhr.readyState == 4) {
+                                            if (careXhr.status == 200) {
+                                                alert('关注成功');
+                                                this.careBox.innerHTML = '已关注';
+                                            }
+                                            else {
+                                                alert('关注失败');
+                                            }
+                                        }
+                                    }
+                                }
+                            })(u_id)
+                        }
+                        var wbBox = document.createElement('p');
+                        resultBox.appendChild(wbBox);
+                        wbBox.innerHTML = '搜索到的微博:';
+                        wbBox.style.marginLeft = '0.8em';
+                        wbBox.style.fontSize = '1.5em';
+                        wbBox.style.color = 'grey';
+
+                        //展示搜索的微博
+                        //查询的微博
+                        for (var j = 0; j < searchResult.weibo.length; j++) {
+                            var postBox = document.createElement('div');
+                            resultBox.appendChild(postBox);
+                            postBox.style.width = '80%';
+                            postBox.style.display = 'inline-block';
+                            postBox.style.borderRadius = '0.3em';
+                            postBox.style.background = 'white';
+                            postBox.style.margin = '0.5em 1em 1em';
+                            postBox.style.padding = '0.5em';
+                            //发微博的用户名
+                            var userName = document.createElement('div');
+                            postBox.appendChild(userName);
+                            userName.style.fontSize = '1.1em';
+                            userName.style.fontFamily = '黑体';
+                            userName.style.width = '50%';
+                            userName.innerHTML = searchResult.weibo[j].o_onick;// 获取用户昵称
+                            // 时间
+                            var time = document.createElement('p');
+                            postBox.appendChild(time);
+                            time.style.fontSize = "0.9em";
+                            time.style.color = '#474747';
+                            time.innerHTML = searchResult.weibo[j].p_times;// 获取时间
+                            // 微博内容
+                            var mess = document.createElement('div');
+                            postBox.appendChild(mess);
+                            mess.style.paddingTop = '0.3em';
+                            mess.style.color = '#474747';
+                            mess.style.fontSize = '0.9em';
+                            mess.innerHTML = searchResult.weibo[j].p_content;
+                            //获取微博id
+                            var p_id = searchResult.weibo[j].id;
+                            //加收藏
+                            var likeBox = document.createElement('div');
+                            resultBox.appendChild(likeBox);
+                            likeBox.style.display = 'inline-block';
+                            likeBox.style.width = '10%';
+                            likeBox.style.height = '2em';
+                            likeBox.style.background = 'green';
+                            likeBox.style.lineHeight = '2em';
+                            likeBox.style.textAlign = 'center';
+                            likeBox.style.cursor = 'pointer';
+                            likeBox.style.verticalAlign = 'top';
+                            likeBox.style.marginTop = '1em';
+                            likeBox.style.borderRadius = '0.3em';
+                            likeBox.innerHTML = '收藏';
+                            (function LIFO(p_id) {
+                                likeBox.onclick = function () {
+                                    var likeXhr = new XMLHttpRequest();
+                                    //收藏的后端接口！
+                                    likeXhr.open('post', '/insertCollection');
+                                    likeXhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                    likeXhr.send('id=' + p_id);
+                                    likeXhr.onreadystatechange = function () {
+                                        if (likeXhr.readyState == 4) {
+                                            if (likeXhr.status == 200) {
+                                                alert('收藏成功');
+                                                this.likeBox.innerHTML = '已收藏';
+                                            }
+                                            else {
+                                                alert('收藏失败');
+                                            }
+                                        }
+                                    }
+                                }
+                            })(p_id)
+
+                        }
+
+                    }
+
+                }
+            }
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>

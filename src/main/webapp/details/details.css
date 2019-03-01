@@ -1,0 +1,158 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+body {
+    font: normal 100% Helvetica, Arial, sans-serif;
+    background: #fcf3e4;
+}
+/* 总体 */
+#contianer{
+    width: 100%;
+    /* height: 100%; */
+    display: inline-block;
+    background:#fcf3e4;
+}
+#contianer #messageBox{
+    margin: 4em auto;
+    width: 40em;
+}
+#contianer #messageBox #postBox{
+    width: 95%;
+    border-radius: 0.3em;
+    background: #ffffff;
+    padding: 1.5em 1em 1em 1em;
+
+}
+#contianer #messageBox #userFace {
+    display: inline-block;
+    width: 3em;
+    height: 3em;
+    margin: 0.3em auto 0.3em;
+}
+#contianer #messageBox #userFace img{
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;    
+}
+#contianer #messageBox #userName{
+    display: inline-block;
+    height: 2em;
+    font-size: 1.5em;
+    font-family: 微软雅黑;
+}
+#contianer #messageBox #time{
+    font-size: 1em;
+    color: #474747;
+}
+#contianer #messageBox #time:hover{
+    cursor: pointer;
+}
+#contianer #messageBox #mess{
+    padding-top: 1em;
+    color: #474747;
+}
+
+#contianer #messageBox #haddle{
+    height: 2em;
+    width: 100%;
+    margin-top: 0.3em;
+    border-top: 0.0625em solid #e8e8e8;
+    /* background: green; */
+}
+#haddle #greet{
+    width: 45%;
+    height: 1em;
+    text-align: center;
+    padding: 0.8em;
+    display: inline-block;
+    border-right: 0.0625em solid #e8e8e8;
+    color: #474747;
+}
+#haddle #greet:hover{
+    cursor: pointer;
+    color: #eb7350;
+}
+#haddle #greet #greetImg{
+    display: inline-block;
+}
+#haddle #greet #greetImg img{
+    height: 1.3em;
+    width: 1.3em;
+}
+#haddle #greet #greetNumber{
+    font-size: 1.2em;
+    margin-left: 0.3em;
+}
+#haddle #comment{
+    width: 45%;
+    height: 1em;
+    text-align: center;
+    padding: 0.8em;
+    display: inline-block;
+    color: #474747;
+}
+#haddle #comment:hover{
+    cursor: pointer;
+    color: #eb7350;
+}
+#haddle #comment img{
+    height: 1.3em;
+    width: 1.3em;
+}
+#haddle #comment #commentNumber{
+    font-size: 1.2em;
+    margin-left: 0.3em;
+}
+#contianer #messageBox #commentInput{
+    width: 38em;
+    height: 8em;
+    margin: 1em auto 1em;
+    padding: 1em;
+    border-radius: 0.3em;
+    background: #ffffff;
+    display: none;
+}
+#contianer #messageBox #commentInput p{
+    color: #426c81;
+    font-size: 1em;
+    font-family: 幼圆;
+    font-weight: bold;
+}
+#contianer #messageBox #commentInput #input{
+    height: 40%;
+    width: 100%;
+    resize: none;
+    font-size: 1.125em;
+    line-height: 1.125em;
+    margin-top: 0.625em;
+    margin-bottom: 0.5em;
+    padding: 0.3125em 0 0 0.125em;
+}
+#contianer #messageBox #commentInput #subPic{
+    display: inline-block;
+    margin-top: 0.5em;
+}
+#contianer #messageBox #commentInput #btn{
+    display: inline-block;
+    width: 4.2em;
+    height: 1.6em;
+    border-radius: 0.2em;
+    margin-left: 90%;
+    background: #ff8140;
+    color: #ffffff;
+    text-align: center;
+    line-height: 1.6em;
+}
+#contianer #messageBox #commentInput #btn:hover{
+    cursor: pointer;
+}
+
+#contianer #messageBox #commentBox{
+    width: 95%;
+    border-radius: 0.3em;
+    margin-top: 2em;
+}
+

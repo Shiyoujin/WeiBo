@@ -1,0 +1,231 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+body {
+    font: normal 100% Helvetica, Arial, sans-serif;
+    background: #fcf3e4;
+}
+/* 总体 */
+#contianer{
+    width: 100%;
+    display: inline-block;
+    /* background:#fcf3e4; */
+}
+/* 搜索出来的div */
+#resultBox{
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    background: #f8dbdb;
+    display: none;
+    border-radius: 0.3em;
+}
+
+
+/* 顶部 */
+#top{
+    height: 3.6em;
+    width: 100%;
+    display: inline-block;
+    background: white;
+    position:fixed;
+    border-bottom: 1px solid rgb(196, 194, 194);
+}
+#top #topWord{
+    height: 3.6em;
+    width: 93.75em;
+    margin: 0 auto;
+}
+#top #logo{
+    display: inline-block;
+    margin-left: 6.25em;
+    height: 2.3em;
+    line-height: 2.3em;
+    width: 6.875em;
+    font-size: 1.5em;
+    font-family: 幼圆;
+    letter-spacing: 0.1875em;
+    font-weight: bold;
+}
+#top #logo:hover{
+    cursor:pointer;
+}
+#top #logo img{
+    width: 2em;
+    height: 2em;
+    margin-right: 0.3125em;
+    vertical-align:middle;
+}
+#top #search{
+    display: inline-block;
+    width: 25em;
+    height: 2.5em;
+    vertical-align:middle;
+} 
+#top #searchButton{
+    text-decoration: none;
+    display: inline-block;
+    height: 2em;
+    width: 3.125em;
+    background: rgb(236, 196, 196);
+    text-align: center;
+    line-height: 2em;
+    border-radius: 0.3125em;
+}
+#top #searchButton:hover{
+    background: #e9baba;
+    cursor: pointer;
+}
+
+#top .catalog{
+    display: inline-block;
+    margin-right:2%;
+    width: 3.75em;
+    height: 3.6em;
+    line-height: 3.6em;
+    text-align: center;
+    float: right;
+}
+#top .catalog:hover{
+    color: #fa7d3c;
+    cursor: pointer;
+}
+#top .catalog img{
+    height: 1.25em;
+    width: 1.25em;
+    vertical-align:middle;
+}
+#top #catalogGame{
+    display: inline-block;
+    margin-right:10%;  
+    width: 3.75em;
+    height: 3.6em;
+    line-height: 3.6em;
+    text-align: center;
+    float: right;   
+}
+#top #catalogGame:hover{
+    color: #fa7d3c;
+    cursor: pointer;
+}
+#top #catalogGame img{
+    height: 1.25em;
+    width: 1.25em;
+    vertical-align:middle;
+}
+#top #logOff{
+    display: inline-block;
+    margin-right: 5em;  
+    width: 6.25em;
+    height: 3.6em;
+    line-height: 3.6em;
+    text-align: center;
+    float: right; 
+}
+#top #logOff:hover{
+    color: #fa7d3c;
+    cursor: pointer;
+}
+#top #logOff img{
+    height: 1.25em;
+    width: 1.25em;
+    vertical-align:middle;
+}
+
+#zyBox{
+    margin:0 auto;
+    width: 50em;
+    background: #c1b5a2;
+    margin-top: 5em;
+}
+#zyBox #leftClass{
+    display: inline-block;
+    width: 9.375em;
+    margin-top: 0.9375em;
+}
+#zyBox #classify1{
+    width: 9.375em;
+    height: 6.875em;
+    margin-right: 5em;
+    border-bottom: 1px solid #c7bdab;
+}
+#zyBox #collect{
+    width: 8.4375em;
+    height: 2.125em;
+    padding: 0 0 0 0.9375em;
+    line-height: 2.125em;
+    font-family: 微软雅黑;
+    font-size: 0.9375em;
+    background: #cdc4b5;
+    color:white;
+    font-weight: bold;
+}
+
+#zyBox .classify1{
+    width: 8.4375em;
+    height: 2.125em;
+    padding: 0 0 0 0.9375em;
+    line-height: 2.125em;
+    font-family: 微软雅黑;
+    font-size: 0.9375em;
+    color:white;
+    font-weight: bold;
+}
+#zyBox .classify1:hover{
+    background:#cdc4b5;
+    cursor: pointer;
+}
+#zyBox #classify2{
+    width: 9.375em;
+    height: 5em;
+    margin-right: 5em;
+    margin-top: 0.9375em;
+    border-bottom: 1px solid #c7bdab;
+    margin-bottom: 30em;
+}
+
+#zyBox .classify2{
+    width: 8.4375em;
+    height: 2.5em;
+    padding: 0 0 0 0.9375em;
+    line-height: 2.5em;
+    font-family: 微软雅黑;
+    font-size: 0.75em;
+    color:white;
+    /* font-weight: bold; */
+}
+#zyBox .classify2:hover{
+    background:#cdc4b5;
+    cursor: pointer;
+}
+#zyBox .classify2 img{
+    width: 0.9375em;
+    height: 0.9375em;
+    vertical-align: middle;
+    margin-right: 0.125em;
+}
+
+#zyBox #imformation{
+    display: inline-block;
+    margin-right: 0.625em;
+    width: 37.5em;
+    vertical-align:top;
+    margin-top: 0.9375em;    
+}
+#imformation #getNumber{
+    margin-top: 0.4em;
+    padding-left: 0.5em;
+    background: #ffffff;
+    width: 100%;
+    height: 2.5em;
+    line-height: 2.5em;
+    font-size: 0.9em;
+    font-family: 微软雅黑;
+    font-weight: bold;
+    color: #333333;
+}
+

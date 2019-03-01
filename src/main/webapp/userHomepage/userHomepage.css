@@ -1,0 +1,452 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+body {
+    font: normal 100% Helvetica, Arial, sans-serif;
+    background: #fcf3e4;
+}
+/* 总体 */
+#contianer{
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    background:#fcf3e4;
+}
+/* 搜索出来的div */
+#resultBox{
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    background: #f8dbdb;
+    display: none;
+    border-radius: 0.3em;
+}
+/* 顶部 */
+#top{
+    height: 3.6em;
+    width: 100%;
+    display: inline-block;
+    background: white;
+    position:fixed;
+    border-bottom: 0.0625em solid rgb(196, 194, 194);
+}
+#top #topWord{
+    height: 3.6em;
+    width: 93.75em;
+    margin: 0 auto;
+}
+#top #logo{
+    display: inline-block;
+    margin-left: 6.25em;
+    height: 2.3em;
+    line-height: 2.3em;
+    width: 6.875em;
+    font-size: 1.5em;
+    font-family: 幼圆;
+    letter-spacing: 0.1875em;
+    font-weight: bold;
+}
+#top #logo:hover{
+    cursor:pointer;
+}
+#top #logo img{
+    width: 2em;
+    height: 2em;
+    margin-right: 0.3125em;
+    vertical-align:middle;
+}
+#top #search{
+    display: inline-block;
+    width: 25em;
+    height: 2.5em;
+    vertical-align:middle;
+} 
+#top #searchButton{
+    text-decoration: none;
+    display: inline-block;
+    height: 2em;
+    width: 3.125em;
+    background: rgb(236, 196, 196);
+    text-align: center;
+    line-height: 2em;
+    border-radius: 0.3125em;
+}
+#top #searchButton:hover{
+    background: #e9baba;
+    cursor: pointer;
+}
+
+#top .catalog{
+    display: inline-block;
+    margin-right:2%;
+    width: 3.75em;
+    height: 3.6em;
+    line-height: 3.6em;
+    text-align: center;
+    float: right;
+}
+#top .catalog:hover{
+    color: #fa7d3c;
+    cursor: pointer;
+}
+#top .catalog img{
+    height: 1.25em;
+    width: 1.25em;
+    vertical-align:middle;
+}
+#top #catalogGame{
+    display: inline-block;
+    margin-right:10%;  
+    width: 3.75em;
+    height: 3.6em;
+    line-height: 3.6em;
+    text-align: center;
+    float: right;   
+}
+#top #catalogGame:hover{
+    color: #fa7d3c;
+    cursor: pointer;
+}
+#top #catalogGame img{
+    height: 1.25em;
+    width: 1.25em;
+    vertical-align:middle;
+}
+#top #personalCenter{
+    display: inline-block;
+    margin-right: 5em;  
+    width: 6.25em;
+    height: 3.6em;
+    line-height: 3.6em;
+    text-align: center;
+    float: right; 
+}
+#top #personalCenter:hover{
+    color: #fa7d3c;
+    cursor: pointer;
+}
+#top #personalCenter img{
+    height: 1.25em;
+    width: 1.25em;
+    vertical-align:middle;
+}
+
+#zyBox{
+    width: 100%;
+    /* height: 100%; */
+    background:#fcf3e4;
+    padding-top: 2em;
+}
+#userBox{
+    width: 57.5em;
+    height: 100%;
+    margin: 0 auto;
+}
+#userBox #user{
+    width: 57.5em;
+    height: 18.75em;    
+    background: url(./img/dva.png) no-repeat ;
+    /* 背景图片不变形 */
+    -webkit-background-size: cover; 
+    -moz-background-size: cover; 
+    -o-background-size: cover;
+}
+#userBox #user #userFace{
+    width: 6.25em;
+    height: 6.25em;
+    padding-top: 2.5em;
+    margin: 2.5em auto 0.3em;
+}
+
+#userBox #user #userFace img{
+    width: 6.25em;
+    height: 6.25em;
+    border-radius: 50%;
+}
+
+#userBox #user #u_name {
+    color: #000000;
+    text-decoration:none;
+    font-size: 0.75em;
+    text-align: center;
+    margin: 1em auto 0.3em;
+}
+#userBox #user #u_intro {
+    text-decoration: none;
+    color: #000000;
+    text-align: center;
+    font-size: 0.75em;
+    margin: 0.2em auto 0;
+}
+#leftBox{
+    display: inline-block;
+    width: 18.75em;
+    height: 40em;
+    /* background: #307d74; */
+}
+#leftBox #innerWrap{
+    display: inline-block;
+    width: 18.75em;
+    height: 2.5em;
+    padding: 0.8125em 0;
+    margin-top: 0.9375em;
+    margin-right: 1.25em;
+    background: #ffffff;
+}
+#zyBox #userBox #concernedBox{
+    display: inline-block;
+    width: 5.625em;
+    height: 2.125em;
+    border-right: 0.0625em solid #e8e8e8;
+    text-align: center;
+}
+#zyBox #userBox #concernedBox:hover{
+    cursor: pointer;
+    color: #307d74;
+}
+#zyBox #userBox #concernedBox #careNumber{
+    display: block;
+    font-size: 1.125em;
+}
+#zyBox #userBox #concernedBox span{
+    font-size: 0.75em;
+    color: #808080;
+}
+#zyBox #userBox #fansBOx{
+    display: inline-block;
+    width: 5.625em;
+    height: 2.125em;
+    border-right: 0.0625em solid #e8e8e8;
+    text-align: center;
+}
+#zyBox #userBox #fansBOx #fansNumber{
+    display: block;
+    font-size: 1.125em;
+}
+#zyBox #userBox #fansBOx:hover{
+    color: #307d74;
+    cursor: pointer;
+}
+#zyBox #userBox #fansBOx span{
+    font-size: 0.75em;
+    color: #808080;
+}
+#zyBox #userBox #weiBOBox{
+    display: inline-block;
+    width: 5.625em;
+    height: 2.125em;
+    text-align: center;
+}
+#zyBox #userBox #weiBOBox #postNumber{
+    display: block;
+    font-size: 1.125em;
+}
+#zyBox #userBox #weiBOBox:hover{
+    color: #307d74;
+    cursor: pointer;
+}
+#zyBox #userBox #weiBOBox span{
+    font-size: 0.75em;
+    color: #808080;
+}
+
+#leftBox #changeBtn{
+    width: 100%;
+    margin: 1em auto;
+    height: 2em;
+    line-height: 2em;
+    border-radius: 0.3em;
+    text-align:center;
+    background: white;
+    color: #6d6c6c;
+    font-family: 微软雅黑;
+    font-size: 1em;
+}
+#leftBox #changeBtn:hover{
+    cursor: pointer;
+}
+#leftBox #changeInform{
+    width: 100%;
+    height: 18em;
+    background: #ffffff;
+    text-align: center;
+    border-radius: 0.2em;
+    display: none;
+}
+#changeInform p{
+    padding-top: 0.5em;
+    color: #6d6c6c;
+    font-size: 0.9em;
+}
+#changeInform #newName{
+    margin-top: 0.625em;
+    padding-left: 0.5em;
+    width: 80%;
+    height: 1.875em;
+    border: none;
+    border-radius: 2px;
+    background: #ebe8e8;
+}
+#changeInform #newIntro{
+    margin-top: 0.625em;
+    width: 80%;
+    height: 5em;
+    border: none;
+    border-radius: 2px;
+    background: #ebe8e8;
+    resize: none;
+    font-family: 微软雅黑;
+    padding: 0.5em;
+}
+#changeInform .sendChange{
+    height: 2em;
+    width: 80%;
+    text-align: center;
+    line-height: 2em;
+    background: #ff8140;
+    color: #ffffff;
+    margin: 1em auto;
+    border-radius: 0.2em;
+}
+#changeInform .sendChange:hover{
+    background: #eb7350;
+    cursor: pointer;
+}
+#leftBox #changeFaceBtn{
+    width: 100%;
+    margin: 1em auto;
+    height: 2em;
+    line-height: 2em;
+    border-radius: 0.3em;
+    text-align:center;
+    background: white;
+    color: #6d6c6c;
+    font-family: 微软雅黑;
+    font-size: 1em;
+}
+#leftBox #changeFaceBtn:hover{
+    cursor: pointer;
+}
+#leftBox #changeFace{
+    width: 100%;
+    height: 6em;
+    background: #ffffff;
+    text-align: center;
+    border-radius: 0.2em;
+    display: none;
+}
+#photo{
+    margin-top: 1em;
+    margin-left: 1em;
+}
+#getFace{
+    height: 2em;
+    width: 80%;
+    text-align: center;
+    line-height: 2em;
+    background: #ff8140;
+    color: #ffffff;
+    margin: 1em auto;
+    border-radius: 0.2em;
+    border: none;
+}
+#getFace:hover{
+    cursor: pointer;
+    background: #eb7350;
+}
+
+#zyBox #userBox #imformation{
+    display: inline-block;
+    width: 37.5em;
+    margin-top: 0.9375em;
+}
+#zyBox #imformation{
+    display: inline-block;
+    margin-left: 0.9em;
+    width: 37.5em;
+    vertical-align:top;
+    margin-top: 0.9375em;    
+}
+#zyBox #imformation #sendWeiBo{
+    margin-bottom: 0.625em;
+    height: 8.7em;
+    background: white;
+    border-radius: 0.125em;
+    padding: 0.9375em 0.625em 0.625em;
+    text-align: center;
+}
+#zyBox #imformation p{
+    font-size: 0.875em;
+    color: #426c81;
+    font-family:幼圆;
+    font-weight: bold;
+    float: left;
+}
+#zyBox #imformation #input{
+    height: 60%;
+    width: 100%;
+    font-size: 1.125em;
+    line-height: 1.125em;
+    resize: none;
+    margin-top: 0.625em;
+    line-height: 1.125em;
+    padding: 0.3125em 0 0 0.125em;
+}
+#zyBox #imformation #funcArea{
+    display:inline-block;
+    height: 1.5625em;
+    width: 24em;
+    line-height: 1.5625em;
+    overflow: hidden;
+}
+#zyBox #imformation #funcArea .func{
+    float: left;
+    display: inline-block;
+    font-size: 0.8em;
+    font-family: 微软雅黑;
+    margin-right: 1.125em;
+}
+#zyBox #imformation #funcArea .func:hover{
+    cursor: pointer;
+    color: #307d74;
+}
+#zyBox #imformation #funcArea .func img{
+    display: inline-block;
+    width: 1.25em;
+    height: 1.375em;
+    margin-right: 0.1875em;
+    vertical-align: middle;
+}
+#zyBox #imformation #send{
+    display: inline-block; 
+    width: 11.875em;
+    height: 1.75em;
+    margin-top: 0.3125em;
+}
+#zyBox #imformation #send #sendMess{
+    vertical-align: bottom;
+    display: inline-block;
+    background: #ff8140;
+    border: 0.0625em solid #f77c3d;
+    box-shadow: 0 0.0625 0.125em rgba(0,0,0,0.25);
+    margin-left: 8em;
+    height: 1.75em;
+    width: 5.2em;
+    border-radius: 0.0625em;
+    color: white;
+    font-family: Microsoft YaHei;
+    font-size: 0.875em;
+    line-height: 1.75em;
+    text-align: center;
+}
+#zyBox #imformation #send #sendMess:hover{
+    cursor: pointer;
+    background: #eb7350;
+}
+#zyBox #imformation #messageBox{
+    width: 36.25em;
+}

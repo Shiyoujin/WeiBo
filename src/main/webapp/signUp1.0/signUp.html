@@ -1,0 +1,66 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="signUp.css">
+    <title>注册</title>
+</head>
+
+<body>
+
+<div id="contianer">
+    <div id="zcBox">
+            <div class="img">
+                <img src="./img/微博.png">
+                <p>微博</p>
+            </div>
+            <!-- 后端 -->
+            <form action="..\signup" method="post" name="signUpForm">
+            <div class="input">
+                <input id="userID" type="text" name="userID" placeholder="用户ID">
+                <input id="password" type="password" name="password" placeholder="密码">
+                <input id="u_name" type="text" name="u_name" placeholder="用户昵称">
+                <p>性别:男<input id="u_sex" type="radio" name="u_sex" value="男" checked="true"/>
+                女<input id="u_sex" type="radio" name="u_sex" value="女"/></p>
+            </div>
+            <input id="button" type="button" value="注册" onclick="signUp()"> 
+            </form>
+            <div id="contentSignIn" onclick="window.open('../signIn1.0/signIn.html','_self')" >已有账号?去登录</div>
+    </div>
+</div> 
+
+
+
+<script>
+
+function signUp()
+{
+    var userID = document.getElementById('userID').value;
+    var password = document.getElementById('password').value;
+    var u_name = document.getElementById('u_name').value;
+    for(var i = 0; i < document.getElementsByName('u_sex').length; i++)
+    {
+        if(document.getElementsByName('u_sex')[i].checked == true)
+        {
+            var u_sex = document.getElementsByName('u_sex')[i].value;
+        }
+    }
+    if(userID.length>0&&password.length>0)
+    {
+        document.forms['signUpForm'].submit();
+    }
+    else
+    {
+        alert("用户ID或密码不能为空");
+        return;
+    }
+    alert("注册成功！");
+
+}
+
+
+
+</script>
+</body>
+</html>

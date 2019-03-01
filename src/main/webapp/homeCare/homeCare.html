@@ -1,0 +1,127 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="homeCare.css">
+    <title>关注</title>
+</head>
+
+<body>
+    <div id="contianer">
+        <div id="jumpHome" onclick="jumpHome()">
+            返回首页</div> <div id="messBox">
+        </div>
+    </div>
+
+
+    <script>
+        function jumpHome() {
+            var jumpXhr = new XMLHttpRequest();
+            //跳转到首页的接口
+            jumpXhr.open('post', '/jumpHomePage');
+            jumpXhr.send();
+            jumpXhr.onreadystatechange = function () {
+                if (jumpXhr.readyState == 4) {
+                    if (jumpXhr.status == 200) {
+                        console.log('跳转成功');
+                        window.location.href = '../homePageSignIn/homePageSignIn.html';
+                    }
+                    else {
+                        console.log('跳转失败');
+                    }
+                }
+            }
+        }
+
+
+        var messBox = document.getElementById('messBox');
+        window.onload = function () {
+            var careXhr = new XMLHttpRequest();
+            //关注页面接口
+            careXhr.open('post', '/careAll');
+            careXhr.send();
+            careXhr.onreadystatechange = function () {
+                if (careXhr.readyState == 4) {
+                    if (careXhr.status == 200) {
+                        var careMess = JSON.parse(careXhr.responseText);
+                        for (var i = 0; i < careMess.CareMessage.length; i++) {
+                            var userMess = document.createElement('div');
+                            messBox.appendChild(userMess);
+                            userMess.style.display = 'inline-block';
+                            userMess.style.width = '48em';
+                            userMess.style.height = '6em';
+                            userMess.style.marginBottom = '1.5em';
+                            userMess.style.background = '#ffcccc';
+                            userMess.style.padding = '0.8em';
+                            //用户头像
+                            var userFace = document.createElement('img');
+                            userMess.appendChild(userFace);
+                            userFace.style.display = 'inline-block';
+                            userFace.style.verticalAlign = 'top';
+                            userFace.style.width = '6em';
+                            userFace.style.height = '6em';
+                            userFace.style.borderRadius = '50%';
+                            userFace.src = careMess.CareMessage[i].l_pic;
+                            
+                            var textBox = document.createElement('div');
+                            userMess.appendChild(textBox);
+                            textBox.style.display = 'inline-block';
+                            textBox.style.width = '40em';
+                            textBox.style.height = '5em';
+                            textBox.style.padding = '0.5em';
+                            textBox.style.marginLeft = '1em';
+                            textBox.style.background = '#ffffcc';
+                            //用户昵称
+                            var nameBox = document.createElement('div');
+                            textBox.appendChild(nameBox);
+                            nameBox.style.fontSize = '1.5em';
+                            nameBox.innerHTML = careMess.CareMessage[i].l_name;
+                            //用户性别
+                            var sexBox = document.createElement('span');
+                            nameBox.appendChild(sexBox);
+                            sexBox.style.marginLeft = '0.6em';
+                            sexBox.style.fontSize = '0.7em';
+                            sexBox.innerHTML = careMess.CareMessage[i].l_sex;
+                            //关注数
+                            var careBox = document.createElement('div');
+                            textBox.appendChild(careBox);
+                            careBox.style.display = 'inline-block';
+                            careBox.style.fontSize = '0.8em';
+                            careBox.style.color = '#474747';
+                            careBox.innerHTML = '关注:';
+                            var careNum = document.createElement('span');
+                            careBox.appendChild(careNum);
+                            careNum.innerHTML = careMess.CareMessage[i].l_careNumber;
+                            //粉丝数
+                            var fansBox = document.createElement('div');
+                            textBox.appendChild(fansBox);
+                            fansBox.style.display = 'inline-block';
+                            fansBox.style.fontSize = '0.8em';
+                            fansBox.style.color = '#474747';
+                            fansBox.style.marginLeft = '0.5em';
+                            fansBox.innerHTML = '粉丝:';
+                            var fansNum = document.createElement('span');
+                            fansBox.appendChild(fansNum);
+                            fansNum.innerHTML = careMess.CareMessage[i].l_fansNumber;
+                            //个人简介
+                            var introBox = document.createElement('div');
+                            textBox.appendChild(introBox);
+                            introBox.style.fontSize = '1em';
+                            introBox.style.marginTop = '0.5em';
+                            introBox.style.color = '#474747';
+                            introBox.innerHTML = careMess.CareMessage[i].l_intro;
+                            var introMess = document.createElement('span');
+                            introBox.appendChild(introMess);
+                        }
+                    }
+                }
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

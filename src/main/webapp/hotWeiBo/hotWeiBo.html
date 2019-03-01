@@ -1,0 +1,170 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="hotWeiBo.css">
+    <title>热门微博</title>
+</head>
+
+<body>
+
+    <div id="contianer">
+
+
+        <div id="top">
+            <div id="topWord">
+                <div id="logo" onclick="window.open('../homePageSignIn/homePageSignIn.html','_self')"><img src="./img/微博.png">微博</div>
+                <input id="search" type="text" name="search" placeholder="大家正在搜：玉酱女装">
+                <div id="searchButton" onclick="searchMess()">搜索</div>
+                <div id="logOff" onclick="window.open('../homePage/homePage.html','_self')"><img src="./img/logOff.png">退出登录</div>
+                <div id="catalogGame" onclick=""><img src="./img/游戏(1).png">游戏</div>
+                <div class="catalog" onclick=""><img src="./img/发现(1).png">发现</div>
+                <div class="catalog" onclick=""><img src="./img/视频(1).png">视频</div>
+                <div class="catalog" onclick=""><img src="./img/首页(1).png">首页</div>
+            </div>
+        </div>
+        <div id="zyBox">
+            <!-- 中间的微博展示 -->
+            <div id="imformation"></div>
+        </div>
+    </div>
+    <script>
+        function jumpHome() {
+            var jumpXhr = new XMLHttpRequest();
+            //跳转到首页的接口
+            jumpXhr.open('post', '/jumpHomePage');
+            jumpXhr.send();
+            jumpXhr.onreadystatechange = function () {
+                if (jumpXhr.readyState == 4) {
+                    if (jumpXhr.status == 200) {
+                        console.log('跳转成功');
+                        window.location.href = '../homePageSingIn/homePageSingIn.html';
+                    }
+                    else {
+                        console.log('跳转失败');
+                    }
+                }
+            }
+        }
+
+        //展示热门的微博
+        window.onload = function () {
+            var imformation = document.getElementById('imformation');
+            var hotXhr = new XMLHttpRequest();
+            hotXhr.open('post', '/hotWeibo');
+            hotXhr.send();
+            hotXhr.onreadystatechange = function () {
+                if (hotXhr.readyState == 4) {
+                    if (hotXhr.status == 200) {
+                        var hotMess = JSON.parse(hotXhr.responseText);
+
+                        for (var i = 0; i < hotMess.hotweibo.length; i++) {
+                            var id = hotMess.hotweibo[i].id;
+                            var sendMessage = document.createElement('div');
+                            imformation.appendChild(sendMessage);
+                            sendMessage.style.padding = '0.625em';
+                            sendMessage.style.margin = '0.2em auto 0.625em';
+                            sendMessage.style.width = '36.25em';
+                            sendMessage.style.background = "white";
+                            sendMessage.style.marginBottom = '0.625em';
+                            sendMessage.style.borderRadius = '0.2em';
+
+                            //头像
+                            var faceBox = document.createElement('div');
+                            sendMessage.appendChild(faceBox);
+                            faceBox.style.display = 'inline-block';
+                            var face = document.createElement('img');
+                            faceBox.appendChild(face);
+                            face.style.height = '3em';
+                            face.style.width = '3em';
+                            face.style.borderRadius = '50%';
+                            face.src = hotMess.hotweibo[i].u_pic;
+
+                            // 用户昵称
+                            var userName = document.createElement('div');
+                            sendMessage.appendChild(userName);
+                            userName.style.display = 'inline-block';
+                            userName.style.height = '1.875em';
+                            userName.innerHTML = hotMess.hotweibo[i].u_name;// 获取用户昵称
+                            userName.style.fontSize = "1.5625em";
+                            userName.style.fontFamily = "微软雅黑";
+
+                            // 时间
+                            var time = document.createElement('p');
+                            sendMessage.appendChild(time);
+                            time.style.fontSize = "1.125em";
+                            time.style.cursor = 'pointer';
+                            time.innerHTML = hotMess.hotweibo[i].p_times;// 获取时间
+
+                            //跳转到详情页
+                            (function LIFO(id) {
+                                time.onclick = function () {
+                                    console.log(id);
+                                    // 跳转到详情页
+                                    var jumpDetailsXhr = new XMLHttpRequest();
+                                    jumpDetailsXhr.open('post', '/jumpDetailPage');
+                                    jumpDetailsXhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                    jumpDetailsXhr.send('id=' + id);
+                                    jumpDetailsXhr.onreadystatechange = function () {
+                                        if (jumpDetailsXhr.readyState == 4) {
+                                            if (jumpDetailsXhr.status == 200) {
+                                                console.log('跳转成功');
+                                                window.location.href = '../details/details.html';
+                                            }
+                                        }
+                                    }
+                                }
+                            })(id)
+
+
+                            // 微博内容
+                            var mess = document.createElement('div');
+                            sendMessage.appendChild(mess);
+                            mess.style.paddingTop = '1em';
+                            mess.style.borderBottom = "0.0625em solid #e8e8e8";
+                            mess.innerHTML = hotMess.hotweibo[i].p_content;// 获取微博内容
+
+                            // 评论点赞
+                            var handle = document.createElement('div');
+                            sendMessage.appendChild(handle);
+                            handle.style.height = '2.1875em';
+                            handle.style.width = '100%';
+                            // 点赞
+                            var greet = document.createElement('div');
+                            handle.appendChild(greet);
+                            greet.style.width = '46%';
+                            greet.style.height = '1em';
+                            greet.style.textAlign = "center";
+                            greet.style.padding = '0.625em';
+                            greet.style.display = "inline-block";
+                            greet.innerHTML = '<img src = "./img/点赞.png" height = "20px" width = "20px">';
+                            var greetNumber = document.createElement('span');
+                            greet.appendChild(greetNumber);
+                            greetNumber.style.fontSize = '1.25em';
+                            greetNumber.style.marginLeft = '0.3125em';
+                            greetNumber.innerHTML = hotMess.hotweibo[i].g_number;//获取点赞数
+                            // 评论
+                            var comment = document.createElement('div');
+                            handle.appendChild(comment);
+                            comment.style.width = '46%';
+                            comment.style.height = '1em';
+                            comment.style.textAlign = "center";
+                            comment.style.padding = '0.625em';
+                            comment.style.display = "inline-block";
+                            comment.innerHTML = '<img src = "./img/评论.png" height = "20px" width = "20px">';
+                            var commentNumber = document.createElement('span');
+                            comment.appendChild(commentNumber);
+                            commentNumber.style.fontSize = '1.2em';
+                            commentNumber.style.marginLeft = '0.3125em';
+                            commentNumber.innerHTML = hotMess.hotweibo[i].c_number;//获取评论数
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

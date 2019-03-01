@@ -1,0 +1,37 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="signIn.css">
+    <title>登录</title>
+</head>
+
+<body>
+
+<div id="contianer">
+    <div id="dlBox">
+            <div class="img">
+                <img src="./img/微博.png">
+                <p>微博</p>
+            </div>
+            <!-- 后端 -->
+            <form action="..\login" method="POST" name="signInForm">
+                <div class="input">
+                        <input id="userID" type="text" name="userID" placeholder="用户ID">
+                        <input id="password" type="password" name="password" placeholder="密码">
+                </div>
+
+                <input id="button" type="submit" value="登录">
+            </form>
+            <div id="contentSignUp" onclick="window.open('../signUp1.0/signUp.html','_self')" >没有账号?去注册</div>
+    </div>
+</div> 
+
+
+
+<script>
+    
+</script>
+</body>
+</html>

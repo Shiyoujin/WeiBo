@@ -1,0 +1,19 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  <!--<filter>-->
+    <!--<filter-name>pemsissonFilter</filter-name>-->
+    <!--<filter-class>team.redrock.weiBo.servlet.PermissonFilter</filter-class>-->
+    <!--<init-param>-->
+      <!--<param-name>passUrl</param-name>-->
+      <!--<param-value>/signIn1.0;signUp1.0/signUp.html;homePage/homePage.html</param-value>-->
+    <!--</init-param>-->
+  <!--</filter>-->
+  <!--<filter-mapping>-->
+    <!--<filter-name>pemsissonFilter</filter-name>-->
+    <!--<url-pattern>/*</url-pattern>-->
+  <!--</filter-mapping>-->
+</web-app>

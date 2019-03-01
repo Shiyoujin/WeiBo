@@ -1,0 +1,92 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="trendSearch.css">
+    <title>关注</title>
+</head>
+
+<body>
+    <div id="contianer">
+        <div id="jumpHome" onclick="jumpHome()">
+            返回首页</div>
+        <div id="messBox">
+        </div>
+    </div>
+
+    <script>
+        function jumpHome() {
+            var jumpXhr = new XMLHttpRequest();
+            //跳转到首页的接口
+            jumpXhr.open('post', '/jumpHomePage');
+            jumpXhr.send();
+            jumpXhr.onreadystatechange = function () {
+                if (jumpXhr.readyState == 4) {
+                    if (jumpXhr.status == 200) {
+                        console.log('跳转成功');
+                        window.location.href = '../homePageSingIn/homePageSingIn.html';
+                    }
+                    else {
+                        console.log('跳转失败');
+                    }
+                }
+            }
+        }
+
+        //展示热搜微博
+        window.onload = function () {
+            var imformation = document.getElementById('messBox');
+            var hotXhr = new XMLHttpRequest();
+            hotXhr.open('post', '/hotSearch');
+            hotXhr.send();
+            hotXhr.onreadystatechange = function () {
+                if (hotXhr.readyState == 4) {
+                    if (hotXhr.status == 200) {
+                        var hotMess = JSON.parse(hotXhr.responseText);
+                        for (var i = 0; i < hotMess.HotSearch.length; i++) {
+                            var sendMessage = document.createElement('div');
+                            imformation.appendChild(sendMessage);
+                            sendMessage.style.padding = '0.3em';
+                            sendMessage.style.width = '48em';
+                            sendMessage.style.background = "white";
+                            sendMessage.style.borderBottom = "0.0625em solid #e8e8e8";
+                            sendMessage.style.marginBottom = '0.5em';
+                            sendMessage.style.borderRadius = '0.2em';
+
+                            var num = document.createElement('span');
+                            sendMessage.appendChild(num);
+                            num.style.color = '#474747';
+                            num.style.marginRight = '0.5em';
+                            num.style.fontSize = '1.5em';
+                            num.innerHTML = i+1+'.';
+                            // 热搜内容
+                            var mess = document.createElement('div');
+                            sendMessage.appendChild(mess);
+                            mess.style.paddingTop = '1em';
+                            mess.style.display = 'inline-block';
+                            
+                            mess.innerHTML = hotMess.HotSearch[i].content;// 获取微博内容
+                            //热度
+                            var fireImg = document.createElement('img');
+                            var hotNum = document.createElement('span');
+                            sendMessage.appendChild(fireImg);
+                            sendMessage.appendChild(hotNum);
+                            fireImg.src = './img/火苗.png';
+                            fireImg.style.width = '1.5em';
+                            fireImg.style.height = '1.5em';
+                            fireImg.style.marginLeft = '3em';
+                            hotNum.style.marginLeft = '0.5em';
+                            hotNum.innerHTML = hotMess.HotSearch[i].number;
+                        }
+                    }
+                }
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

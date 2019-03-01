@@ -1,0 +1,401 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="details.css">
+    <title>详情</title>
+</head>
+
+<body>
+
+    <div id="contianer">
+        <div id="messageBox">
+            <div id="postBox">
+                <div id="userFace"></div>
+                <div id="userName"></div>
+                <p id="time"></p>
+                <div id="mess"></div>
+                <div id="haddle">
+                    <div id="greet">
+                        <div id="greetImg"></div>
+                        <span id="greetNumber"></span>
+                    </div>
+                    <div id="comment">
+                        <img src="./img/评论.png">
+                        <span id="commentNumber"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="commentInput">
+                <p>发表评论</p>
+                <textarea id="input"></textarea>
+                <div id="btn">发送</div>
+            </div>
+            <!-- 显示已发布的评论 -->
+            <div id="commentBox"></div>
+        </div>
+    </div>
+
+
+    <script>
+        var messageBox = document.getElementById('messageBox');
+        window.onload = function () {
+            var detailsXhr = new XMLHttpRequest();
+            //读取主页信息接口!
+            detailsXhr.open('post', '/detailPage');
+            detailsXhr.send();
+            detailsXhr.onreadystatechange = function () {
+                if (detailsXhr.readyState == 4) {
+                    if (detailsXhr.status == 200) {
+                        var detailsMess = JSON.parse(detailsXhr.responseText);
+                        var id = detailsMess.id;//微博id
+                        var userID = detailsMess.userID;//用户id
+                        //用户头像
+                        var userFace = document.getElementById('userFace');
+                        var userFaceImg = document.createElement('img');
+                        userFace.appendChild(userFaceImg);
+                        userFaceImg.src = detailsMess.u_pic;
+
+                        // 用户昵称
+                        var userName = document.getElementById('userName');
+                        userName.innerHTML = detailsMess.u_name;// 获取用户昵称
+
+                        // 时间
+                        var time = document.getElementById('time');
+                        time.style.cursor = 'pointer';
+                        time.innerHTML = detailsMess.d_times;// 获取时间
+                        time.onclick = function () {
+                            window.location.href("details.html");
+                        }
+
+                        // 微博内容
+                        var mess = document.getElementById('mess');
+                        mess.innerHTML = detailsMess.d_content;// 获取微博内容
+
+                        // 点赞数
+                        var greet = document.getElementById('greet');
+                        var greetImg = document.getElementById('greetImg');
+                        var greetNumber = document.getElementById('greetNumber');
+                        greetNumber.innerHTML = detailsMess.g_Number;
+                        if (detailsMess.isGreat == 0) {
+                            greetImg.innerHTML = '<img src = "./img/点赞.png" height = "1.3em" width = "1.3em">';
+                            greet.onclick = function () {
+                                var status = 'great';
+                                var greXhr = new XMLHttpRequest();
+                                //点赞接口！
+                                greXhr.open('post', '/great');
+                                greXhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                //传给后端的接口
+                                greXhr.send('status=' + status);
+                                greXhr.onreadystatechange = function () {
+                                    if (greXhr.readyState == 4) {
+                                        if (greXhr.status == 200) {
+                                            greetImg.innerHTML = '<img src = "./img/已点赞.png" height = "1.3em" width = "1.3em">';
+                                            window.location.href = 'details.html';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if (detailsMess.isGreat == 1) {
+                            greetImg.innerHTML = '<img src = "./img/已点赞.png" height = "1.3em" width = "1.3em">';
+                            greet.onclick = function () {
+                                var status = 'cancel';
+                                var greXhr = new XMLHttpRequest();
+                                //点赞接口！
+                                greXhr.open('post', '/great');
+                                greXhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                //传给后端的接口
+                                greXhr.send('status=' + status);
+                                greXhr.onreadystatechange = function () {
+                                    if (greXhr.readyState == 4) {
+                                        if (greXhr.status == 200) {
+                                            greetImg.innerHTML = '<img src = "./img/点赞.png" height = "1.3em" width = "1.3em">';
+                                            window.location.href = 'details.html';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        // 评论数
+                        var comment = document.getElementById('comment');
+                        var commentNumber = document.getElementById('commentNumber');
+                        commentNumber.innerHTML = detailsMess.c_Number;//获取评论数
+                        comment.onclick = function () {
+                            //点击评论
+                            var input = document.getElementById('input');
+                            var commentInput = document.getElementById('commentInput');
+                            commentInput.style.display = 'block';
+                            var btn = document.getElementById('btn');
+                            btn.onclick = function () {
+                                var inputMess = input.value;
+                                var commXhr = new XMLHttpRequest();
+                                //发送评论接口
+                                commXhr.open('post', '/sendChild');
+                                commXhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                commXhr.send('content=' + inputMess + '&id=' + id);
+                                commXhr.onreadystatechange = function () {
+                                    if (commXhr.readyState == 4) {
+                                        if (commXhr.status == 200) {
+                                            alert('发送成功');
+                                            input.innerHTML = "";
+                                            window.location.href = 'details.html';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        var getCommXhr = new XMLHttpRequest();
+                        //展示评论的后端接口
+                        getCommXhr.open('post', '/child');
+                        getCommXhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                        getCommXhr.send('id=' + id);
+                        getCommXhr.onreadystatechange = function () {
+                            if (getCommXhr.readyState == 4) {
+                                if (getCommXhr.status == 200) {
+                                    var getComment = JSON.parse(getCommXhr.responseText);
+                                    //获取评论
+                                    for (var i = getComment.child.length - 1; i >= 0; i--) {
+                                        var commentBox = document.getElementById('commentBox');
+                                        var commentMess = document.createElement('div');
+                                        commentBox.appendChild(commentMess);
+                                        commentMess.style.width = '100%';
+                                        commentMess.style.background = '#ffffff';
+                                        commentMess.style.borderRadius = '0.3em';
+                                        commentMess.style.padding = '1em';
+                                        commentMess.style.marginBottom = '0.5em';
+                                        //头像
+                                        var c_faceBox = document.createElement('div');
+                                        commentMess.appendChild(c_faceBox);
+                                        c_faceBox.style.display = 'inline-block';
+                                        var c_face = document.createElement('img');
+                                        c_faceBox.appendChild(c_face);
+                                        c_face.style.height = '3em';
+                                        c_face.style.width = '3em';
+                                        c_face.style.borderRadius = '50%';
+                                        c_face.src = getComment.child[i].u_pic;
+                                        //昵称
+                                        var c_name = document.createElement('div');
+                                        commentMess.appendChild(c_name);
+                                        c_name.style.display = 'inline-block';
+                                        c_name.style.fontSize = '1.2em';
+                                        c_name.style.fontFamily = '黑体';
+                                        c_name.innerHTML = getComment.child[i].u_name;//获取昵称
+                                        //时间
+                                        var c_time = document.createElement('p');
+                                        commentMess.appendChild(c_time);
+                                        c_time.style.color = '#474747';
+                                        c_time.style.fontSize = '0.8em';
+                                        c_time.innerHTML = getComment.child[i].p_times;//获取时间
+                                        //评论内容
+                                        var c_content = document.createElement('div');
+                                        commentMess.appendChild(c_content);
+                                        c_content.style.marginTop = '0.8em';
+                                        c_content.style.fontSize = '0.8em';
+                                        c_content.style.fontFamily = '微软雅黑';
+                                        c_content.style.color = '#474747';
+                                        c_content.innerHTML = getComment.child[i].content;//获取微博内容
+                                        //获取评论id
+                                        var c_id = getComment.child[i].id;
+                                        //回复按钮
+                                        var replyBtn = document.createElement('div');
+                                        commentMess.appendChild(replyBtn);
+                                        replyBtn.style.marginRight = '90%';
+                                        replyBtn.style.fontSize = '1em';
+                                        replyBtn.style.color = '#999999';
+                                        replyBtn.style.cursor = 'pointer';
+                                        replyBtn.innerHTML = '回复';
+
+                                        (function LIFO(c_id) {
+                                            //发送回复内容
+                                            replyBtn.onclick = function () {
+                                                var replyMess = document.createElement('div');
+                                                commentMess.appendChild(replyMess);
+                                                replyMess.style.width = '90%';
+                                                replyMess.style.height = '8em';
+                                                var textarea = document.createElement('textarea');
+                                                replyMess.appendChild(textarea);
+                                                textarea.style.resize = 'none';
+                                                textarea.style.width = '80%';
+                                                textarea.style.height = '80%';
+                                                var rBtn = document.createElement('div');
+                                                replyMess.appendChild(rBtn);
+                                                rBtn.style.height = '3em';
+                                                rBtn.style.width = '5em';
+                                                rBtn.style.marginLeft = '80%';
+                                                rBtn.style.cursor = 'pointer';
+                                                rBtn.innerHTML = '发送';
+                                                rBtn.onclick = function () {
+                                                    var replyMess = input.value;  //游琎加的
+                                                    var replyMessXhr = new XMLHttpRequest();
+
+                                                    replyMessXhr.open('post', '/sendChild');
+                                                    replyMessXhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                                    replyMessXhr.send('content=' + replyMess + '&id=' + c_id);
+                                                    replyMessXhr.onreadystatechange = function () {
+                                                        if (replyMessXhr.readyState == 4) {
+                                                            if (replyMessXhr.status == 200) {
+                                                                alert('回复成功');
+                                                                window.location.href = 'details.html';
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        })
+
+                                        //根据评论id获取回复
+                                        var replyXhr = new XMLHttpRequest();
+                                        //获取回复的接口
+                                        replyXhr.open('post', '/child');
+                                        replyXhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                        replyXhr.send('id=' + c_id);
+                                        replyXhr.onreadystatechange = function () {
+                                            if (replyXhr.readyState == 4) {
+                                                if (replyXhr.status == 200) {
+                                                    var getReply = JSON.parse(replyXhr.responseText);
+
+                                                    for (var j = getReply.child.length - 1; j > 0; j--) {
+                                                        var replyBox = document.createElement('div');
+                                                        commentMess.appendChild(replyBox);
+                                                        replyBox.style.background = '#dddddd';
+                                                        replyBox.style.marginTop = '1.5em';
+                                                        replyBox.style.width = '98%';
+                                                        replyBox.style.borderRadius = '0.3em';
+                                                        replyBox.style.padding = '0.5em';
+                                                        //回复的昵称
+                                                        var r_name = document.createElement('div');
+                                                        replyBox.appendChild(r_name);
+                                                        r_name.style.fontSize = '1em';
+                                                        r_name.style.fontFamily = '黑体';
+                                                        r_name.innerHTML = getReply.child[j].u_name;
+                                                        //回复的时间
+                                                        var r_time = document.createElement('p');
+                                                        replyBox.appendChild(r_time);
+                                                        r_time.style.fontSize = '0.5em';
+                                                        r_time.style.color = '#474747';
+                                                        r_time.innerHTML = getReply.child[j].p_times;
+                                                        //回复的内容
+                                                        var r_content = document.createElement('div');
+                                                        replyBox.appendChild(r_content);
+                                                        r_content.style.fontSize = '0.8em';
+                                                        r_content.style.color = '#474747';
+                                                        r_content.style.marginTop = '0.5em';
+                                                        r_content.innerHTML = getReply.child[j].content;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+    // window.onload = function () {
+    //     var comment = document.getElementById('comment');
+    //     var commentNumber = document.getElementById('commentNumber');
+    //     commentNumber.innerHTML = '1';//获取评论数
+    //     comment.onclick = function () {
+    //         //点击评论
+    //         var commentInput = document.getElementById('commentInput');
+    //         commentInput.style.display = 'block';
+
+    //         var input = document.getElementById('input');
+    //         var inputMess = input.value;
+
+    //         var btn = document.getElementById('btn');
+
+    //         // btn.onclick = function(){
+    //         //     //发送评论接口
+    //         // }
+
+    //     }
+
+    //     for (var j = 0; j < 2; j++) {
+    //         var commentBox = document.getElementById('commentBox');
+    //         var commentMess = document.createElement('div');
+    //         commentBox.appendChild(commentMess);
+
+    //         commentMess.style.width = '100%';
+    //         commentMess.style.background = '#ffffff';
+    //         commentMess.style.borderRadius = '0.3em';
+    //         commentMess.style.padding = '1em 1em 1.5em 1em';
+    //         commentMess.style.marginBottom = '1em';
+    //         //昵称
+    //         var c_name = document.createElement('div');
+    //         commentMess.appendChild(c_name);
+    //         c_name.style.fontSize = '1.2em';
+    //         c_name.style.fontFamily = '黑体';
+    //         c_name.innerHTML = '臭蛋蛋w';
+    //         //时间
+    //         var c_time = document.createElement('p');
+    //         commentMess.appendChild(c_time);
+    //         c_time.style.color = '#474747';
+    //         c_time.style.fontSize = '0.8em';
+    //         c_time.innerHTML = '2019-02-24 15:51';
+    //         //评论内容
+    //         var c_content = document.createElement('div');
+    //         commentMess.appendChild(c_content);
+    //         c_content.style.marginTop = '0.8em';
+    //         c_content.style.fontSize = '0.8em';
+    //         c_content.style.fontFamily = '微软雅黑';
+    //         c_content.style.color = '#474747';
+    //         c_content.innerHTML = '啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊';
+
+    //         var replyBtn = document.createElement('div');
+    //         commentMess.appendChild(replyBtn);
+    //         replyBtn.style.cssFloat = 'right';
+    //         replyBtn.style.fontSize = '1em';
+    //         replyBtn.style.color = '#999999';
+    //         replyBtn.style.cursor = 'pointer';
+    //         replyBtn.innerHTML = '回复';
+
+    //         for (var k = 0; k < 2; k++) {
+    //             var replyBox = document.createElement('div');
+    //             commentMess.appendChild(replyBox);
+    //             replyBox.style.background = '#dddddd';
+    //             replyBox.style.marginTop = '1.5em';
+    //             replyBox.style.width = '98%';
+    //             replyBox.style.borderRadius = '0.3em';
+    //             replyBox.style.padding = '0.5em';
+    //             //回复的昵称
+    //             var r_name = document.createElement('div');
+    //             replyBox.appendChild(r_name);
+    //             r_name.style.fontSize = '1em';
+    //             r_name.style.fontFamily = '黑体';
+    //             r_name.innerHTML = '啊啊';
+    //             //回复的时间
+    //             var r_time = document.createElement('p');
+    //             replyBox.appendChild(r_time);
+    //             r_time.style.fontSize = '0.5em';
+    //             r_time.style.color = '#474747';
+    //             r_time.innerHTML = '2019-02-24 22:51';
+    //             //回复的内容
+    //             var r_content = document.createElement('div');
+    //             replyBox.appendChild(r_content);
+    //             r_content.style.fontSize = '0.8em';
+    //             r_content.style.color = '#474747';
+    //             r_content.style.marginTop = '0.5em';
+    //             r_content.innerHTML = '啊啊啊啊啊啊啊啊啊啊啊啊';
+
+    //             replyBtn.onclick = function () {
+    //                 var replyMess = prompt("请输入你的回复", "说得太好了");
+    //             }
+    //         }
+    //     }
+    // }
+
+
+
+    </script>
+</body>
+
+</html>
