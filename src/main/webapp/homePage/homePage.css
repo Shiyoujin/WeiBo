@@ -4,6 +4,9 @@
     list-style: none;
     text-decoration: none;
 }
+body {
+    font: normal 100% Helvetica, Arial, sans-serif;
+}
 /* 总体 */
 #contianer{
     width: 100%;
@@ -11,51 +14,74 @@
     display: inline-block;
     background:#fcf3e4;
 }
+/* 搜索出来的div */
+#resultBox{
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    background: #f8dbdb;
+    display: none;
+    border-radius: 0.3em;
+}
+/* 搜索出来的div */
+#contianer #resultBox{
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    height: 20em;
+    background: #e9baba;
+}
 /* 顶部 */
 #top{
-    height: 50px;
+    height: 3.6em;
     width: 100%;
     display: inline-block;
-    margin-bottom: 15px;
+    background: white;
+    position:fixed;
     border-bottom: 1px solid rgb(196, 194, 194);
 }
 #top #topWord{
-    height: 100%;
-    width: 1500px;
+    height: 3.6em;
+    width: 93.75em;
     margin: 0 auto;
 }
 #top #logo{
     display: inline-block;
-    margin-left: 100px;
-    height: 50px;
-    width: 110px;
-    font-size: 25px;
+    margin-left: 6.25em;
+    height: 2.3em;
+    line-height: 2.3em;
+    width: 6.875em;
+    font-size: 1.5em;
     font-family: 幼圆;
-    letter-spacing:3px;
-    line-height: 50px;
+    letter-spacing: 0.1875em;
     font-weight: bold;
 }
+#top #logo:hover{
+    cursor:pointer;
+}
 #top #logo img{
-    width: 40px;
-    height: 40px;
-    margin-right: 5px;
+    width: 2em;
+    height: 2em;
+    margin-right: 0.3125em;
     vertical-align:middle;
 }
 #top #search{
     display: inline-block;
-    width: 400px;
-    height: 35px;
+    width: 25em;
+    height: 2.5em;
     vertical-align:middle;
 } 
 #top #searchButton{
     text-decoration: none;
     display: inline-block;
-    height: 33px;
-    width: 50;
+    height: 2em;
+    width: 3.125em;
     background: rgb(236, 196, 196);
     text-align: center;
-    line-height: 30px;
-    border-radius: 5px;
+    line-height: 2em;
+    border-radius: 0.3125em;
 }
 #top #searchButton:hover{
     background: #e9baba;
@@ -65,9 +91,9 @@
 #top .catalog{
     display: inline-block;
     margin-right:2%;
-    width: 60px;
-    height: 50px;
-    line-height:50px;
+    width: 3.75em;
+    height: 3.6em;
+    line-height: 3.6em;
     text-align: center;
     float: right;
 }
@@ -76,16 +102,16 @@
     cursor: pointer;
 }
 #top .catalog img{
-    height: 20px;
-    width: 20px;
+    height: 1.25em;
+    width: 1.25em;
     vertical-align:middle;
 }
 #top #catalogGame{
     display: inline-block;
-    margin-right:5%;  
-    width: 60px;
-    height: 50px;
-    line-height:50px;
+    margin-right:10%;  
+    width: 3.75em;
+    height: 3.6em;
+    line-height: 3.6em;
     text-align: center;
     float: right;   
 }
@@ -94,60 +120,44 @@
     cursor: pointer;
 }
 #top #catalogGame img{
-    height: 20px;
-    width: 20px;
-    vertical-align:middle;
-}
-#top #personalCenter{
-    display: inline-block;
-    margin-right:80px;  
-    width: 100px;
-    height: 50px;
-    line-height:50px;
-    text-align: center;
-    float: right; 
-}
-#top #personalCenter:hover{
-    color: #fa7d3c;
-    cursor: pointer;
-}
-#top #personalCenter img{
-    height: 20px;
-    width: 20px;
+    height: 1.25em;
+    width: 1.25em;
     vertical-align:middle;
 }
 
+
 #zyBox{
     margin:0 auto;
-    height: 100%;
-    width: 1200px;
+    height: 80%;
+    width: 75em;
+    margin-top: 5em;
 }
 #zyBox ul{
     list-style: none;
     display: inline-block;
-    width: 100px;
-    margin-right: 50px;
+    width: 6.25em;
+    margin-right: 3.125em;
 }
-#zyBox #reMen{
-    width: 100px;
-    height: 40px;
+#zyBox #choose{
+    width: 6.25em;
+    height: 2.5em;
     text-align: center;
-    line-height: 40px;
-    border-radius: 5px;
+    line-height: 2.5em;
+    border-radius: 0.3125em;
     font-family: 微软雅黑;
-    font-size: 18px;
+    font-size: 1.125em;
     background:#fe5635;
     color:white;
 }
 #zyBox .classify{
-    width: 100px;
-    height: 40px;
+    width: 6.25em;
+    height: 2.5em;
     text-align: center;
-    line-height: 40px;
-    border-radius: 5px;
+    line-height: 2.5em;
+    border-radius: 0.3125em;
     font-family: 微软雅黑;
-    font-size: 18px;
-    margin-top: 3px;
+    font-size: 1.125em;
+    margin-top: 0.1875em;
 }
 #zyBox .classify:hover{
     background:#fe5635;
@@ -156,51 +166,77 @@
 }
 #zyBox #imformation{
     display: inline-block;
-    height: 100%;
     width: 60%;
     vertical-align: top;
-    text-align: center;
-    background: pink;
+    margin-right: 1em;
+}
+#imformation #news1{
+    width: 100%;
+    border-bottom: 0.1em solid #e5e5e5;
+}
+#imformation #news1 img{
+    width: 100%;
+    margin: 1em auto 0em;
+}
+#imformation #news1 p{
+    font-size: 1em;
+    color: #474747;
+}
+#imformation #news1 p span{
+    color: blue;
+}
+#imformation #news2{
+    width: 100%;
+    margin-top: 1em;
+    border-bottom: 0.1em solid #e5e5e5;
+    background: white;
+}
+#imformation #news2 img{
+    width: 9em;
+    height: 7em;
+    display: inline-block;
+    margin: 1em 0.5em 0.5em 0;
+}
+#imformation #news2 #mess{
+    color: #000000;
+    display: inline-block;
+    vertical-align: top;
+    height: 2em;
+    margin: 1em 0 0.5em 0.5em;
+    font-size: 1em;
+    
+}
+#imformation #news2 #userName{
+    display: inline-block;
+    color: #474747;
+    font-size: 0.8em;
+    margin: 1em 0.5em 0.5em 1em;
 }
 #zyBox #dlBox{
     display: inline-block;
-    width: 280px;
-    height: 200px;
+    width: 17.5em;
+    height: 12.5em;
     vertical-align: top;
-    background: white;
-    border: 20px solid #f2f2f5;
+    /* background: white;
+    border: 20px solid #f2f2f5; */
     text-align: center;
-    line-height: 300px;
+    line-height: 18.75em;
 }
 #zyBox #dlBox div{
     text-align: center;
     margin: 0 auto;
-    margin-top: 15%;
-    width: 250px;
-    height: 40px;
-    line-height: 40px;
+    margin-top: 1em;
+    width: 14em;
+    height: 2.5em;
+    line-height: 2.5em;
     background: #ff8140;
-    border-radius: 5px;
+    border-radius: 0.3125em;
     color: white;
     font-family: 微软雅黑;
-    font-size: 20px;
-    letter-spacing: 3px;
+    font-size: 1.25em;
+    letter-spacing: 0.1875em;
 }
 #zyBox #dlBox div:hover{
     background: rgb(247, 103, 29);
     cursor: pointer;
 }
-/* #zyBox #dlBox img{
-    width: 70px;
-    height: 70px;
-    margin-top: 30px;
-}
-#zyBox #dlBox #userName{
-    width: 100%;
-    height: 30px;
-    margin-top: 15px;
-    text-align: center;
-    font-size: 18px;
-    color: black;
-    font-family: 微软雅黑;
-} */

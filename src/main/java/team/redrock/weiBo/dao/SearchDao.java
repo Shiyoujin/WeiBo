@@ -24,7 +24,7 @@ public class SearchDao {
 
         String sqlU = "SELECT * FROM user WHERE u_name like ?";
 
-        String sqlP = "SELECT * FROM post WHERE content like ? ORDER BY p_times DESC ";  //若是 搜索的微博，根据 发送微博的时间 来排序(DESC 降序，ASC 升序)
+        String sqlP = "SELECT * FROM post WHERE content like ? AND p_id = 0 ORDER BY p_times DESC ";  //若是 搜索的微博，根据 发送微博的时间 来排序(DESC 降序，ASC 升序)
 
         Connection connection = JDBC.getConnection();
         PreparedStatement pstmt = null;

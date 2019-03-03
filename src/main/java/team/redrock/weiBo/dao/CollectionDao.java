@@ -101,6 +101,7 @@ public class CollectionDao {
                     collection.setO_opic(res.getString("o_opic"));  //用户头像
                     collection.setO_onick(res.getString("u_name")); //用户昵称
                     collection.setP_content(res.getString("content")); //微博内容
+                    collection.setId(res.getInt("id"));              //微博id
                     collection.setP_times(res.getString("p_times")); //微博发送时间
                     collection.setP_image(res.getString("p_image")); //微博发送图片
                     collection.setC_number(res.getString("c_number")); //评论数

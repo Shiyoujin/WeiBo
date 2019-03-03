@@ -321,11 +321,12 @@ public class MutualityDao {
     public static void main(String[] args) throws SQLException {
         MutualityDao mutualityDao =new MutualityDao();
         //测试 取消关注功能
-        if (mutualityDao.deleteFollow("2","1")) {
-            System.out.println("取消关注成功");
-        }else {
-            System.out.println("未执行");
-        }
+//        if (mutualityDao.deleteFollow("2","1")) {
+//            System.out.println("取消关注成功");
+//        }else {
+//            System.out.println("未执行");
+//        }
+
     }
 
 }

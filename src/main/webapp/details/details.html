@@ -244,49 +244,49 @@
                                                     }
                                                 }
                                             }
-                                        })(c_id)
 
-                                        //根据评论id获取回复
-                                        var replyXhr = new XMLHttpRequest();
-                                        //获取回复的接口
-                                        replyXhr.open('post', '/child');
-                                        replyXhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                                        replyXhr.send('id=' + c_id);
-                                        replyXhr.onreadystatechange = function () {
-                                            if (replyXhr.readyState == 4) {
-                                                if (replyXhr.status == 200) {
-                                                    var getReply = JSON.parse(replyXhr.responseText);
-                                                    for (var j = getReply.child.length - 1; j >= 0; j--) {
-                                                        var replyBox = document.createElement('div');
-                                                        commentMess.appendChild(replyBox);
-                                                        replyBox.style.background = '#dddddd';
-                                                        replyBox.style.marginTop = '1.5em';
-                                                        replyBox.style.width = '98%';
-                                                        replyBox.style.borderRadius = '0.3em';
-                                                        replyBox.style.padding = '0.5em';
-                                                        //回复的昵称
-                                                        var r_name = document.createElement('div');
-                                                        replyBox.appendChild(r_name);
-                                                        r_name.style.fontSize = '1em';
-                                                        r_name.style.fontFamily = '黑体';
-                                                        r_name.innerHTML = getReply.child[j].u_name;
-                                                        //回复的时间
-                                                        var r_time = document.createElement('p');
-                                                        replyBox.appendChild(r_time);
-                                                        r_time.style.fontSize = '0.5em';
-                                                        r_time.style.color = '#474747';
-                                                        r_time.innerHTML = getReply.child[j].p_times;
-                                                        //回复的内容
-                                                        var r_content = document.createElement('div');
-                                                        replyBox.appendChild(r_content);
-                                                        r_content.style.fontSize = '0.8em';
-                                                        r_content.style.color = '#474747';
-                                                        r_content.style.marginTop = '0.3em';
-                                                        r_content.innerHTML = getReply.child[j].content;
+                                            //根据评论id获取回复
+                                            var replyXhr = new XMLHttpRequest();
+                                            //获取回复的接口
+                                            replyXhr.open('post', '/child');
+                                            replyXhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                            replyXhr.send('id=' + c_id);
+                                            replyXhr.onreadystatechange = function () {
+                                                if (replyXhr.readyState == 4) {
+                                                    if (replyXhr.status == 200) {
+                                                        var getReply = JSON.parse(replyXhr.responseText);
+                                                        for (var j = getReply.child.length - 1; j >= 0; j--) {
+                                                            var replyBox = document.createElement('div');
+                                                            commentMess.appendChild(replyBox);
+                                                            replyBox.style.background = '#dddddd';
+                                                            replyBox.style.marginTop = '1.5em';
+                                                            replyBox.style.width = '98%';
+                                                            replyBox.style.borderRadius = '0.3em';
+                                                            replyBox.style.padding = '0.5em';
+                                                            //回复的昵称
+                                                            var r_name = document.createElement('div');
+                                                            replyBox.appendChild(r_name);
+                                                            r_name.style.fontSize = '1em';
+                                                            r_name.style.fontFamily = '黑体';
+                                                            r_name.innerHTML = getReply.child[j].u_name;
+                                                            //回复的时间
+                                                            var r_time = document.createElement('p');
+                                                            replyBox.appendChild(r_time);
+                                                            r_time.style.fontSize = '0.5em';
+                                                            r_time.style.color = '#474747';
+                                                            r_time.innerHTML = getReply.child[j].p_times;
+                                                            //回复的内容
+                                                            var r_content = document.createElement('div');
+                                                            replyBox.appendChild(r_content);
+                                                            r_content.style.fontSize = '0.8em';
+                                                            r_content.style.color = '#474747';
+                                                            r_content.style.marginTop = '0.3em';
+                                                            r_content.innerHTML = getReply.child[j].content;
+                                                        }
                                                     }
                                                 }
                                             }
-                                        }
+                                        })(c_id)
                                     }
                                 }
                             }

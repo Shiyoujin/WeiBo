@@ -20,6 +20,7 @@ public class CollectionService {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("u_name",collection.getO_onick());
             jsonObject.put("u_pic",collection.getO_opic());
+            jsonObject.put("id",collection.getId());
             jsonObject.put("p_times",collection.getP_times());
             jsonObject.put("p_content",collection.getP_content());
             jsonObject.put("g_number",collection.getG_number());

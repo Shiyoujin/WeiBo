@@ -11,7 +11,7 @@ public class TestCareAll {
 
         MutualityDao mutualityDao = new MutualityDao();
         CareService careService = new CareService();
-        List<String> list = mutualityDao.findCareId("1");
+        List<String> list = mutualityDao.findCareId("13572961");
         List<Care> listCare = mutualityDao.findCareMessage(list);
         String json = careService.createCareMessageJson(listCare);
 

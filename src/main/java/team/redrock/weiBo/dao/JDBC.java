@@ -46,9 +46,10 @@ public class JDBC {
         Connection conn = JDBC.getConnection();
         String sqlU = "insert into user (userID,password,u_sex,u_name,u_pic) values(?,?,?,?,?)";
         String sqlC = "INSERT INTO mutuality (userID,u_name,focus_id,follower_id) VALUES (?,?,?,?)";
+        String sql = "UPDATE mutuality SET follower_id = CONCAT(follower_id,?) WHERE userID = ?";
         PreparedStatement pstmt = null;
-        String focus_id = "3";         //注册时，默认关注海绵宝宝，丰富 注册内容
-        String follower_id = "1";
+        String focus_id = "3;";         //注册时，默认关注海绵宝宝，丰富 注册内容
+        String follower_id = "1;";
         try {
             pstmt = conn.prepareStatement(sqlU);
             pstmt.setString(1, user);
@@ -57,6 +58,7 @@ public class JDBC {
             pstmt.setString(4, u_name);
             pstmt.setString(5,u_pic);
             int count = pstmt.executeUpdate();
+            pstmt.close();
             if (count > 0)
             {
                 pstmt = conn.prepareStatement(sqlC);
@@ -65,12 +67,23 @@ public class JDBC {
                 pstmt.setString(3,focus_id);
                 pstmt.setString(4,follower_id);
                 int collection = pstmt.executeUpdate();
-                if (collection >0){
-                    return true;
+                pstmt.close();
+                if (collection >0) {
+                    pstmt = conn.prepareStatement(sql);
+                    pstmt.setString(1,user + ";");
+                    pstmt.setString(2,"3");
+                    int a = pstmt.executeUpdate();
+                    if (a > 0){
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }else {
                     return false;
                 }
-             } return false;
+                }else {
+                return false;
+            }
         } catch (SQLException e){
             e.printStackTrace();
             return false;
@@ -154,8 +167,14 @@ public class JDBC {
     //测试
     public static void main(String[] args) throws SQLException {
         JDBC jdbc = new JDBC();
-        String a = jdbc.findU_name("1");
-        System.out.println(a);
+       if (jdbc.regiserUser("8","123","nan","天线宝宝","u-pic")){
+           System.out.println("成功");
+       }else
+       {
+           System.out.println("没有");
+       }
+//        String a = jdbc.findU_name("1");
+//        System.out.println(a);
 //        String a = jdbc.findUserIntro("1");
 //        System.out.println(a);
 //        jdbc.regiserUser()

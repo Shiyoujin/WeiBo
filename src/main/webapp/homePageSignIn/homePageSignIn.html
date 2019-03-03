@@ -178,8 +178,8 @@
                         u_name.innerHTML = allMessage.u_name;//获取用户昵称
                         careNumber.innerHTML = allMessage.careNumber;//获取用户关注数
                         fansNumber.innerHTML = allMessage.fansNumber;//获取用户粉丝数
-                        fansNumber.style.cursor = 'pointer';
-                        fansNumber.onclick = function () {
+                        careNumber.style.cursor = 'pointer';
+                        careNumber.onclick = function () {
                             var jumpCareXhr = new XMLHttpRequest();
                             jumpCareXhr.open('post', '/jumpCarePage');
                             jumpCareXhr.send();
@@ -507,7 +507,7 @@
                                         if (careXhr.readyState == 4) {
                                             if (careXhr.status == 200) {
                                                 alert('关注成功');
-                                                this.careBox.innerHTML = '已关注';
+                                                careBox.innerHTML = '已关注';
                                             }
                                             else {
                                                 alert('关注失败');
@@ -556,7 +556,7 @@
                             mess.style.fontSize = '0.9em';
                             mess.innerHTML = searchResult.weibo[j].p_content;
                             //获取微博id
-                            var p_id = searchResult.weibo[j].id;
+                            var p_id = searchResult.weibo[j].p_id;
                             //加收藏
                             var likeBox = document.createElement('div');
                             resultBox.appendChild(likeBox);
@@ -582,7 +582,7 @@
                                         if (likeXhr.readyState == 4) {
                                             if (likeXhr.status == 200) {
                                                 alert('收藏成功');
-                                                this.likeBox.innerHTML = '已收藏';
+                                                likeBox.innerHTML = '已收藏';
                                             }
                                             else {
                                                 alert('收藏失败');

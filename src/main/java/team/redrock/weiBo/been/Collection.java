@@ -12,12 +12,21 @@ public class Collection {
 
     public String p_content; //微博内容
     public String p_times; //微博发送时间
+    public int id;      //微博的id
     public String o_id; //用户id
     public String o_onick; //用户昵称
     public String o_opic; //用户头像
     public String p_image; //微博图片
     public String g_number; //点赞数
     public String c_number; //评论数
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public void setG_number(String g_number) {
         this.g_number = g_number;
